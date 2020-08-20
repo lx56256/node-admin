@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const { PRIVATE_KEY, JWT_EXPIRED } = require('../utils/constants');
 
 router.get('/', function(req, res) {
-  res.send('user...');
+  res.send('user777...');
 })
 
 router.post('/login',[
