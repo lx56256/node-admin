@@ -6,6 +6,7 @@ const { body, validationResult } = require('express-validator');
 const boom = require('boom');
 const jwt = require('jsonwebtoken');
 const { PRIVATE_KEY, JWT_EXPIRED } = require('../utils/constants');
+const { decode } = require('../utils');
 
 router.get('/', function(req, res) {
   res.send('user777...');
@@ -38,14 +39,20 @@ router.post('/login',[
 })
 
 router.get('/info', function(req, res) {
-  findUser('admin').then(user => {
-    if (user) {
-      user[0].roles = [user[0].role];
-      new Result(user[0], '查询用户信息成功').success(res);
-    } else {
-      new Result(user[0], '查询用户信息失败').fail(res);
-    }
-  })
+  const userData = decode(req);
+  console.log(userData);
+  if (userData && userData.username) {
+    findUser(userData.username).then(user => {
+      if (user) {
+        user[0].roles = [user[0].role];
+        new Result(user[0], '查询用户信息成功').success(res);
+      } else {
+        new Result(user[0], '查询用户信息失败').fail(res);
+      }
+    })
+  } else {
+    new Result('查询用户信息失败').fail(res);
+  }
 })
 
 module.exports = router
