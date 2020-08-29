@@ -1,4 +1,4 @@
-const { SUCCESS_CODE, ERROR_CODE } = require('../utils/constants');
+const { SUCCESS_CODE, ERROR_CODE, CODE_TOKEN_EXPIRED } = require('../utils/constants');
 
 class Result {
   constructor(data, msg="操作成功", options) {
@@ -28,9 +28,8 @@ class Result {
       base.data = this.data
     }
     if (this.options) {
-      base = { ...base, ...options }
+      base = { ...base, ...this.options }
     }
-    console.log(base);
     return base;
   }
 
@@ -44,6 +43,10 @@ class Result {
   }
   fail(res) {
     this.code = ERROR_CODE;
+    this.json(res);
+  }
+  jwtError(res) {
+    this.code = CODE_TOKEN_EXPIRED,
     this.json(res);
   }
 }

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router()
 const { Result } = require('../model/result')
-const { login } = require('../service/users');
+const { login, findUser } = require('../service/users');
 const { body, validationResult } = require('express-validator');
 const boom = require('boom');
 const jwt = require('jsonwebtoken');
@@ -38,7 +38,14 @@ router.post('/login',[
 })
 
 router.get('/info', function(req, res) {
-  res.send('user---info...');
+  findUser('admin').then(user => {
+    if (user) {
+      user[0].roles = [user[0].role];
+      new Result(user[0], '查询用户信息成功').success(res);
+    } else {
+      new Result(user[0], '查询用户信息失败').fail(res);
+    }
+  })
 })
 
 module.exports = router

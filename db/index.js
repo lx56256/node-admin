@@ -32,7 +32,29 @@ function querySql(sql) {
   })
 }
 
+function queryOne(sql) {
+  const con = connect();
+  return new Promise((reslove, reject) => {
+    try {
+      con.query(sql, (err, results) => {
+        if (err) {
+          debug && console.log('查询失败原因', JSON.stringify(err));
+          reject(err)
+        } else {
+          reslove(results);
+        }
+      })
+    } catch (error) {
+      debug && console.log('失败原因', JSON.stringify(error));
+      reject(error)
+    } finally {
+      con.end();
+    }
+  })
+}
+
 module.exports = {
-  querySql
+  querySql,
+  queryOne,
 }
 
