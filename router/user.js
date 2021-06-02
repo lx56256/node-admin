@@ -40,7 +40,6 @@ router.post('/login',[
 
 router.get('/info', function(req, res) {
   const userData = decode(req);
-  console.log(userData);
   if (userData && userData.username) {
     findUser(userData.username).then(user => {
       if (user) {

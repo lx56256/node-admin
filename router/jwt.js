@@ -9,7 +9,7 @@ const jwtAuth = expressJwt({
 }).unless({
   path: [
     '/',
-    '/user/login'
+    '/user/login',
   ],
 });
 

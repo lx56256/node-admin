@@ -1,5 +1,6 @@
 const express = require('express');
 const userRouter = require('./user');
+const uploadRouter = require('./upload');
 const boom = require('boom');
 const { jwtAuth } = require('./jwt');
 const { Result } = require('../model/result');
@@ -10,7 +11,7 @@ router.use(jwtAuth);
 router.get('/', function(req, res) {
   res.send('index');
 })
-
+router.use('/image', uploadRouter);
 router.use('/user', userRouter);
 
 router.use((req, res, next) => {
