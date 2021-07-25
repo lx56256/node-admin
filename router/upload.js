@@ -21,9 +21,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage, storage })
 
 router.post('/upload', upload.single('file'), function(req, res) {
-  console.log(req.file, '请求数据');
   if (req.file) {
-    new Result({imageUrl: `http://127.0.0.1:5000/upload-img/${imgUrl}`}, '上传成功').success(res);
+    console.log(imgUrl)
+    new Result({imageUrl: `https://lixu365.com/upload-img/${imgUrl}`}, '上传成功').success(res);
   } else {
     new Result('上传失败').fail(res);
   }

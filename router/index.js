@@ -1,6 +1,7 @@
 const express = require('express');
 const userRouter = require('./user');
 const uploadRouter = require('./upload');
+const pageDate = require('./operate-data');
 const boom = require('boom');
 const { jwtAuth } = require('./jwt');
 const { Result } = require('../model/result');
@@ -13,6 +14,7 @@ router.get('/', function(req, res) {
 })
 router.use('/image', uploadRouter);
 router.use('/user', userRouter);
+router.use('/pages', pageDate);
 
 router.use((req, res, next) => {
   next(boom.notFound('接口不存在'));
