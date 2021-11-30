@@ -7,7 +7,7 @@ const app = express();
 
 
 app.all("*", function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:9527');
+  res.header('Access-Control-Allow-Origin', 'https://admin.lixu365.com');
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept');
   res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
@@ -29,7 +29,7 @@ function errHandle(err, req, res, next) {
   })
 }
 app.use(errHandle)
-const server = app.listen(5001, function(){
+const server = app.listen(5000, function(){
   const { address, port } = server.address();
   console.log(`http已启动在${address}${port}`);
 })
